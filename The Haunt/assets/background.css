@@ -1,0 +1,65 @@
+header {
+	height: 100vh;
+	width: 100vw;
+	display: flex;
+	background-image: url('./images/mountain.svg'), url('./images/sun.svg'), url('./images/background.svg');
+	background-attachment: scroll, fixed, fixed;
+	background-repeat: no-repeat;
+		background-size: cover, 125%, cover;
+
+	background-position: bottom, top, center;
+
+	flex-direction: row;
+	text-align: center;
+	justify-content: space-between;
+
+}
+
+header img.balloon {
+	animation-name: balloon;
+	animation-duration: 5s;
+	animation-iteration-count: infinite;
+	position: relative;
+	z-index: 1;
+}
+
+header img.title {
+	width: 80%;
+	z-index: 10;
+}
+
+header h1 {
+	text-align: center;
+	padding: 20px;
+	margin: 0;
+	align-self: flex-end;
+	width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+	header {
+	
+	background-size: cover, 50%, cover;
+	}
+
+	header img.title {
+		width: 45%;
+		z-index: 10;
+	}
+}
+
+@keyframes balloon {
+	0%, 100% {
+		top: 10px;
+		left: 30px;
+		opacity: .1;
+		transform: scale(0.5);
+	}
+	
+	50% {
+		left: 50px;
+		top: -10px;
+		opacity: .8;
+		transform: scale(1);
+	}
+}

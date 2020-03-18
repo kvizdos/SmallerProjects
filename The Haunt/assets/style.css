@@ -1,0 +1,196 @@
+body {
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	background-color: rgba(0, 0, 0, .25);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top, center;
+	background-attachment: scroll, fixed;
+	background-image: url('./images/background.jpg');
+	font-family: 'Open Sans', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+#content {
+	background-image: url('./images/transition.svg'), linear-gradient(#534741 15px, transparent 15px);
+	background-position: top;
+	background-size: 100%;
+	padding: 25px;
+	background-repeat: no-repeat;
+}
+
+h1 {
+	font-family: 'Mansalva', cursive;
+		color: #ff3131;
+}
+
+h1.header {
+	margin: 0;
+	padding: 0;
+	font-size: 48pt;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-gap: 25px;
+}
+
+#actionList {
+	background-image: url('./images/zombie.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	padding: 25px;
+	color: white;
+	padding-top: 100px;
+	padding-bottom: 100px;
+	box-shadow: 12px 12px 0 3px #860000;
+	margin-bottom: 50px;
+}
+
+.activity {
+	display: flex;
+	flex-direction: column;
+	justify-items: center;
+	align-items: center;
+	box-shadow: 8px 8px 15px 0 black;
+}
+
+.activity:not(a) {
+	background-color: rgba(0, 0, 0, .75);
+}
+
+.activity a {
+	width: 100%;
+}
+
+.activity button {
+	color: white;
+	width: 100%;
+	font-size: 21pt;
+	border: 0;
+	background-color: rgba(255, 0, 0, .5);
+	padding: 10px;
+	transition: .2s;
+	cursor: pointer;
+	outline: none;
+}
+
+.activity button:hover {
+	transition: .2s;
+	transform: scale(1.05);
+}
+
+.activity i {
+	padding: 25px;
+	font-size: 80pt;
+}
+
+ul {
+	font-size: 24pt;
+	color: white;
+	margin: 0;
+}
+
+#calendar {
+	justify-content: right;
+	color: white;
+}
+
+#calendarOctober  {
+	display: grid;
+	grid-template-columns: 50px 50px 50px 50px 50px 50px 50px;
+	grid-gap: 10px;
+	overflow-y: scroll;
+}
+
+#calendar span.past {
+	background-color: #0c0c0c !important;
+	color: #1d1d1d;
+}
+
+#calendar span.open {
+	background-color: #01b301 !important;
+}
+
+#calendar span:not(.container) {
+	background-color: #1d1d1d;
+	height: 50px;
+	width: 50px;
+	padding: 0;
+	margin: 0;
+	color: white;
+	font-size: 24pt;
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+}
+
+.sec {
+
+	background-color: rgba(0, 0, 0, .5);
+	padding: 10px;
+	margin-bottom: 25px;
+}
+
+#about {
+	text-align: center;
+}
+
+#about p {
+	color: white;
+	margin: 0;
+	padding: 0;
+	font-size: 18pt;
+}
+
+#about strong {
+	font-size: 24pt;
+	color: red;
+}
+
+button#register {
+	padding: 5px;
+	border: 0;
+	background-color: #f10000;
+	box-shadow: 4px 4px 0 3px maroon;
+	color: white;
+	font-size: 24pt;
+	margin: 10px;
+	cursor: pointer;
+}
+
+.whatCanIDo {
+	height: 100px;
+	background-color: red;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 25px;
+	color: #f10000;
+	font-family: 'Mansalva', cursive;
+	background-size: cover;
+	background-position: center;
+	font-size: 24pt;
+	text-align: center;
+}
+
+.whatCanIDo#custom {
+	background-image: url('./images/custom.jpg');
+}
+
+.whatCanIDo#hauntedHouse {
+	background-image: url('./images/hauntedHouse.jpg');
+}
+
+.whatCanIDo#hayride {
+	background-image: url('./images/hayride.jpg');
+}

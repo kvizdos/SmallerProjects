@@ -1,0 +1,258 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+	background-attachment: fixed;
+    background-image: url('./assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.fancyName {
+    font-family: 'Dancing Script', cursive;
+	color: #e62414;
+}
+
+header #headerContent {
+	text-align: center;
+	padding: 10px;
+    background-color: rgba(0, 0, 0, .75);
+    border-radius: 4px;
+    box-shadow: 0 0 20px 20px rgba(0, 0, 0, .75);
+}
+
+header #headerContent h1 {
+    font-size: 45pt;
+}
+
+header #headerContent p {
+	font-size: 18pt	;
+}
+
+header #headerContent h1, header #headerContent p {
+    padding: 0;
+    margin: 0;
+}
+
+header #headerBottom  i {
+	font-size: 24pt;
+	color: #ff5f52;
+	transition: .2s;
+	-webkit-touch-callout: none; 
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+	user-select: none;
+}
+
+header #headerBottom  i:hover {
+	transition: .2s;
+	transform: scale(1.5);
+	cursor: pointer;
+}
+
+#content {
+	margin: 25px;
+	margin-top: 0;
+}
+
+#content #aboutUs {
+	font-size: 16pt;
+	text-align: center;
+	padding: 20px;
+	font-style: italic;
+}
+
+#content #uvp {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	text-align: center;
+	grid-gap: 25px;
+}
+
+#content #uvp .uniqueValue {
+	background-color: #e62414;
+	padding: 5px;
+	color: white;
+	border-radius: 10px;
+}
+
+#content #uvp .uniqueValue .uvpTitle {
+	font-size: 18pt;
+}
+
+#content #uvp .uniqueValue .uvpDesc {
+	padding: 10px;
+}
+
+#content #uvp .uniqueValue i {
+	font-size: 32pt;
+}
+
+#content #uvp .uniqueValue p, #content #uvp .uniqueValue i {
+	padding: 0;
+	margin: 0;
+}
+
+#content #whyUseUs {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+#content #whyUseUs p {
+	font-size: 18pt;
+	text-align: center;
+}
+
+#content #pricing {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+	grid-gap: 25px;
+	text-align: center;
+}
+
+#content #split75 {
+	display: grid;
+	grid-template-columns: 65% 1fr;
+	grid-gap: 25px;
+}
+
+#content #pricing .price:not(:last-child) {
+	border-right: 2px solid #e62414;
+}
+
+#content #testimonials .testimonial {
+	display: flex;
+	align-items: center;
+	padding: 0;
+}
+
+#content #testimonials .testimonial  img {
+	border-radius: 50%;
+	margin: 25px;
+}
+
+#content #testimonials .testimonial .test-info h1 {
+	padding: 0;
+	margin: 0;
+}
+
+footer {
+	padding: 10px;
+	margin: 0;
+	background-color: #fb3329;
+	color: white;
+	display: grid;
+	align-items: center;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}	
+
+footer #links img {
+    -webkit-filter: invert(100%);
+	float: right;
+	width: 100px;
+}
+
+small {
+	color: #c5c5c5;
+}
+
+#signUpNow  {
+	text-align: center;
+}
+
+.price p, .price h1 {
+	margin: 0;
+	padding: 0;
+}
+
+.price {
+	padding: 25px;
+}
+
+.price p.fancyName {
+	font-size: 16pt;
+}
+
+.signUpBtn {
+	padding: 0;
+	border: 0;
+	background-color: #ff4f28;
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+	color: white;
+	font-size: 16pt;
+	outline: 0;
+}
+
+.signUpBtn:hover {
+	background-color: #f14721;
+}
+
+#headerContent .signUpBtn {
+	width: inherit;
+}
+
+.price .signUpBtn {
+	margin-top: 20px;
+	width: 100%;
+}
+
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e8e8e8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e62414;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d11f11;
+}
+
+/* Smartphones (portrait) ----------- */
+@media only screen and (max-width : 715px) {
+
+	#content #pricing .price {
+		border-right: 2px solid #e62414;
+	}
+	
+	header #headerContent {
+		background-color: rgba(0, 0, 0, .25);	
+		border-radius: 0;
+		box-shadow: none;
+	}
+	
+	#content #testimonials .testimonial {
+		flex-direction: column;
+		text-align: center;
+	}
+	
+	#content #split75 {
+		justify-content: center;
+		grid-template-columns: repeat(auto-fit, minmax(330px, 65%));
+	}
+	
+	#content #split75 p {
+		font-size: 14pt;
+	}
+
+}
