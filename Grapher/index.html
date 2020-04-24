@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-windowScale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WASM Test</title>
+    <script src="assets/math.js"></script>
+    <script>
+    </script>
+
+    <script>
+        const canvasSize = 1000;
+        let size = 10; 
+        let scale = 1;
+        let centerY = centerX = canvasSize / 2;
+
+        let activeParabola;
+
+        Module.onRuntimeInitialized = function() {
+            console.log("starting")
+
+            window.onload = function() {
+                renderGraph();
+                renderParabola(1, 2, 3);
+            }
+        }
+
+        const convertToPoint = (n, isX = true) => {
+            const center = isX ? centerX : centerY;
+            return center + (isX ? ((n * scale) * (center / size)) : -((n * scale) * (center / size)));
+        }
+
+        const renderPoint = (x, y) => {
+            var c = document.getElementById("equation");
+            var ctx = c.getContext("2d");
+
+            const x1 = convertToPoint(x);
+            const y1 = convertToPoint(y, false);
+
+            ctx.beginPath();
+            ctx.lineWidth = 1;
+            ctx.arc(x1, y1, 1, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.lineWidth = 2;
+
+        }
+        
+        const renderGraph = (resetSize = size, resetscale = scale, reset = false) => {
+            var c = document.getElementById("equation");
+            var ctx = c.getContext("2d");
+            c.width = canvasSize;
+            c.height = canvasSize;
+            ctx.clearRect(0, 0, canvasSize, canvasSize)
+
+            ctx.lineWidth = 2;
+
+            size = resetSize;
+            scale = resetscale;
+
+            for(let i = 0; i <= resetSize; i += resetscale) {
+                const x = centerX + (i * (centerX / resetSize));
+                const negX = centerX - (i * (centerX / resetSize));
+                const y = centerY;
+
+                // Generate X axis
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "#c2c2c2";
+                if(x == centerX) {
+                    ctx.strokeStyle = "#919191";
+                }
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, canvasSize);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(negX, 0);
+                ctx.lineTo(negX, canvasSize);
+                ctx.stroke();
+
+                ctx.strokeStyle = "#141414";
+                ctx.beginPath();
+                ctx.moveTo(x, y - 10);
+                ctx.lineTo(x, y + 10);
+                ctx.stroke();
+
+                ctx.moveTo(negX, y - 10);
+                ctx.lineTo(negX, y + 10);
+                ctx.stroke();
+                if(i != 0) {
+                    ctx.fillText(`(${i},${y - centerY})`, x - 10, y + 30);
+                    ctx.fillText(`(${-i},${y - centerY})`, negX - 10, y + 30);
+                }
+                // Generate Y axis
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "#c2c2c2";
+                if(x == centerX) {
+                    ctx.strokeStyle = "#919191";
+                }
+                ctx.beginPath();
+                ctx.moveTo(0, x);
+                ctx.lineTo(canvasSize, x);
+                ctx.stroke();
+
+                ctx.moveTo(0, negX);
+                ctx.lineTo(canvasSize, negX);
+                ctx.stroke();
+
+                ctx.strokeStyle = "#141414";
+                ctx.beginPath();
+
+                ctx.moveTo(y - 10, x);
+                ctx.lineTo(y + 10, x);
+                ctx.stroke();
+
+                ctx.moveTo(y - 10, negX);
+                ctx.lineTo(y + 10, negX);
+                ctx.stroke();
+                
+                if(i != 0) {
+                    ctx.fillText(`(${y - centerY},${-i})`, y - 50, x + 3);
+                    ctx.fillText(`(${y - centerY},${i})`, y - 50, negX + 3);
+                }
+            }
+
+            if(reset) changeParabola();
+        }
+
+        const renderParabola = (a, h, k, detail = 0.01) => {
+            var c = document.getElementById("equation");
+            var ctx = c.getContext("2d");
+
+            h /= scale;
+            k /= scale;
+
+            let lastX = h;
+            let lastY = k;
+
+            let totalI = 0;
+
+            for(let i = -size; i < size; i += detail) {
+                totalI++;
+                let y = _generateParabolaPoint(i * 1.0, a, h, k);
+                renderPoint(i, y);
+
+                ctx.beginPath();
+
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(convertToPoint(i), convertToPoint(y, false));
+                ctx.stroke();
+
+                lastX = convertToPoint(i);
+                lastY = convertToPoint(y, false);
+            }
+
+        }
+
+        const changeParabola = (fastMode = false) => {
+            renderGraph();
+            const aVal = document.getElementById("parabolaA").value;
+            const hVal = document.getElementById("parabolaH").value;
+            const kVal = document.getElementById("parabolaK").value;
+
+            renderParabola(aVal, hVal, kVal, fastMode ? .25 : 0.01);
+        }
+
+        const renerPolynomial = (v5, v4, v3, v2, v1, vPlus, detail = 0.01) => {
+            var c = document.getElementById("equation");
+            var ctx = c.getContext("2d");
+
+            let lastX = 0;
+            let lastY = 0;
+
+            let totalI = 0;
+
+            for(let i = -size; i < size; i += detail) {
+                totalI++;
+                let y = _generatePolynomialPoint(i * 1.0, v5, v4, v3, v2, v1, vPlus);
+                renderPoint(i, y);
+
+                ctx.beginPath();
+
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(convertToPoint(i), convertToPoint(y, false));
+                ctx.stroke();
+
+                lastX = convertToPoint(i);
+                lastY = convertToPoint(y, false);
+            }
+
+        }
+
+        const changePolynomial = (fastMode = false) => {
+            renderGraph();
+            const val5 = document.getElementById("polynomial5").value;
+            const val4 = document.getElementById("polynomial4").value;
+            const val3 = document.getElementById("polynomial3").value;
+            const val2 = document.getElementById("polynomial2").value;
+            const val1 = document.getElementById("polynomial1").value;
+            const valPlus = document.getElementById("polynomialPlus").value;
+
+            renerPolynomial(val5, val4, val3, val2, val1, valPlus, fastMode ? .25 : 0.01);
+
+        }
+
+        const changeWindow = () => {
+            renderGraph(parseInt(document.getElementById("windowSize").value), parseInt(document.getElementById("windowSpacing").value), true);
+        }
+    </script>
+
+    <style>
+        input[type="number"] {
+            width: 30px;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <p>This is a very basic graphing system that lets you graph a limited amount of equations. It uses WebAssembly and C to increase the speeds!</p>
+
+    <p>Changing the window parameters sometimes works, but sometimes it doesn't, so be warned.</p>
+    <p>Window size</p>
+    <input type="number" value="10" min="10" max="100" id="windowSize" onchange="changeWindow()">
+    
+    <p>Spacing</p>    
+    <input type="number" value="1" min="1" max="100" id="windowSpacing" onchange="changeWindow()">
+
+    <br>
+
+    <p>y = a(x - h)^2 + k</p>
+
+    <span>A: </span> <input type="range" value="1" min="-100" max="100" id="parabolaA" oninput="changeParabola(true)">
+    <span>H: </span> <input type="range" value="1" min="-100" max="100" id="parabolaH" oninput="changeParabola(true)">
+    <span>K: </span> <input type="range" value="1" min="-100" max="100" id="parabolaK" oninput="changeParabola(true)">
+    <input type="submit" value="Set Parabola" onclick="changeParabola()">
+
+    <br>
+    <br>
+
+    <p>Generate a polynomial graph</p>
+    <input type="number" id="polynomial5" value="1" /><span>x^5 +</span><input type="number" id="polynomial4" value="0" /><span>x^4 +</span><input type="number" id="polynomial3" value="0" /><span>x^3 +</span><input type="number" id="polynomial2" value="0" /><span>x^2 +</span><input type="number" id="polynomial1" value="0" /><span>x +</span><input type="number" id="polynomialPlus" value="0" />
+    <input type="submit" value="Render Polynomial" onclick="changePolynomial()">
+
+    <br>
+    <br>
+
+    <canvas id="equation" style="border: 2px solid red"></canvas>
+</body>
+</html>
